@@ -1,3 +1,3 @@
 # Pendulum-Simulation
-Author: Nico
+Author: Nico  
 Date: Nov.15/2022
