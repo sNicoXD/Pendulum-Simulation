@@ -1,4 +1,5 @@
-import pygame, color
+import pygame
+import color, misc
 import math
 class Pendulum:
     length = 0
@@ -7,6 +8,8 @@ class Pendulum:
     mass = 50
     deltaT = 0
     iV = 0
+    posRec = []
+
 
     def __init__(self, length, origin, init_angle, mass, deltaT):
         self.length = length
@@ -23,6 +26,9 @@ class Pendulum:
         py = self.length * math.cos(math.radians(self.angle)) + oy
         pygame.draw.line(screen, color.PURPLE, (ox, oy), (px, py), 2)
         pygame.draw.circle(screen, color.BLUE, (px, py), self.mass)
+        self.posRec.append([px, py])
+        if len(self.posRec) == 50:
+            self.posRec.remove(self.posRec[0])
 
     def set_angle(self, angle):
         self.angle = angle
@@ -34,8 +40,7 @@ class Pendulum:
         self.iV = o2
         self.angle = angle2
         print(self.angle)
-#
 
-#x l*sin + width/2
-#y l*con
-# width/2, 0
+    def trace(self, screen):
+        for n in range(0, len(self.posRec) - 1):
+            pygame.draw.line(screen, [0, misc.sloping(50, 255, 50, n), 0], self.posRec[n], self.posRec[n + 1], 2)
